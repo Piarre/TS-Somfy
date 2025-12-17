@@ -1,6 +1,6 @@
 {
 	"name": "tssomfy",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "TypeScript lib to manage somfy devices.",
 	"homepage": "https://github.com/piarre/TSSomfy#readme",
 	"bugs": {
