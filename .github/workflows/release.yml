@@ -2,9 +2,8 @@ name: Release
 
 on:
   push:
-    # tags:
-    #   - "v*"
-  workflow_call:
+    tags:
+      - "v*"
 
 permissions:
   contents: write
@@ -38,6 +37,14 @@ jobs:
       - name: Build
         run: bun run build
 
+      - name: Pack package
+        run: bun pm pack
+
+      - name: Generate Build Provenance
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: "*.tgz"
+
       - name: Generate changelog
         run: bunx changelogithub
         continue-on-error: true
@@ -46,3 +53,6 @@ jobs:
 
       - name: Publish to npm
         run: bun publish --access public --provenance
+        env:
+          # NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
